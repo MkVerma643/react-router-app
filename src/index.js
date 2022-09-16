@@ -10,6 +10,7 @@ import {
   Route,
   Navigate,
   Link,
+  NavLink,
   Outlet,
   useParams,
 } from "react-router-dom";
@@ -61,11 +62,29 @@ function Learn() {
 }
 
 function Courses() {
+  const courseList = ["React", "Angular", "Vue"];
+  const randomCourseName =
+    courseList[Math.floor(Math.random() * courseList.length)];
   return (
     <div>
       <h1>Courses</h1>
       <div>
         <h4>Courses List</h4>
+        <p>More Infos</p>
+        <NavLink
+          style={({ isActive }) => {
+            return {
+              backgroundColor: isActive ? "white" : "black",
+            };
+          }}
+          to={`/learn/courses/${randomCourseName}`}
+        >
+          {randomCourseName}
+        </NavLink>
+        {" | "}
+        <NavLink className="btn btn-light" to={`/learn/courses/tests`}>
+          Tests
+        </NavLink>
         <Outlet></Outlet>
       </div>
     </div>
@@ -88,9 +107,7 @@ function CourseId() {
   return (
     <div>
       <h1>URL Param is: {courseid}</h1>
-      <div>
-        <h4>Bundles Card</h4>
-      </div>
+      <button className="btn btn-warning">Price</button>
     </div>
   );
 }
